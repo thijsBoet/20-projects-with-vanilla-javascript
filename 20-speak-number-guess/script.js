@@ -1,7 +1,8 @@
-const msgElement = document.getElementById('msg');
+const msgElement = document.getElementById("msg");
 const randomNumber = getRandomNumber();
 
-window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+window.SpeechRecognition =
+  window.SpeechRecognition || window.webkitSpeechRecognition;
 
 let recognition = new window.SpeechRecognition();
 
@@ -10,7 +11,7 @@ recognition.start();
 
 function onSpeak(e) {
   const msg = e.results[0][0].transcript;
-  
+
   writeMessage(msg);
   checkNumber(msg);
 }
@@ -24,20 +25,22 @@ function writeMessage(msg) {
 }
 
 function checkNumber(msg) {
-  const num = +msg
+  const num = +msg;
 
-  if (Number.isNaN(num))    msgElement.innerHTML += '<div>That is not a valid number...</div>';
-  if (num > 100 || num < 1) msgElement.innerHTML += "<div>Number must be between 1 and 100</div>";
+  if (Number.isNaN(num))
+    msgElement.innerHTML += "<div>That is not a valid number...</div>";
+  if (num > 100 || num < 1)
+    msgElement.innerHTML += "<div>Number must be between 1 and 100</div>";
   if (num === randomNumber) {
     document.body.innerHTML = `
       <h2>Congrats! You have guessed the number
       <br><br>It was ${num}</h2>
       <button class="play-again" id="play-again">Play Again</button>`;
   } else if (num > randomNumber) {
-      msgElement.innerHTML += "<div>GO LOWER</div>";
+    msgElement.innerHTML += "<div>GO LOWER</div>";
   } else if (num < randomNumber) {
-           msgElement.innerHTML += "<div>GO HIGHER</div>";
-         }
+    msgElement.innerHTML += "<div>GO HIGHER</div>";
+  }
 }
 
 // Generate random number
@@ -46,13 +49,13 @@ function getRandomNumber() {
 }
 
 // Speak result
-recognition.addEventListener('result', onSpeak);
+recognition.addEventListener("result", onSpeak);
 
 // End SpeechRecognition service
-recognition.addEventListener('end', () => recognition.start())
+recognition.addEventListener("end", () => recognition.start());
 
-document.body.addEventListener('click', (e) => {
-  if (e.target.id === 'play-again') {
+document.body.addEventListener("click", (e) => {
+  if (e.target.id === "play-again") {
     window.location.reload();
   }
-})
+});
