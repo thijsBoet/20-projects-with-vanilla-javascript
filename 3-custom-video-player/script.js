@@ -33,7 +33,7 @@ const updateProgress = () => {
   }
   
   timestamp.innerHTML = `${mins}:${secs}`
-} 
+}
 
 const setVideoProgress = () => {
   video.currentTime = (parseInt(progress.value) * video.duration) / 100;
